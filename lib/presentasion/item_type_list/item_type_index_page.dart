@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/data/model/forklift_data.dart';
-import 'package:flutter_pos/presentasion/add_forklift/add_item_type.dart';
+import 'package:flutter_pos/presentasion/add_forklift/add_forklift.dart';
+import 'package:flutter_pos/presentasion/edit_item_type/cubit/edit_forklift_cubit.dart';
+import 'package:flutter_pos/presentasion/edit_item_type/edit_item_page.dart';
 import 'package:flutter_pos/presentasion/item_type_list/cubit/forklift_index_cubit.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -50,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: state.forklifts.length,
                 itemBuilder: (context, index) {
                   final forklift = state.forklifts[index];
-                  return _buildForkliftCard(forklift);
+                  return _buildForkliftCard(context, forklift);
                 },
               ),
             );
@@ -82,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildForkliftCard(Forklift forklift) {
+  Widget _buildForkliftCard(BuildContext context, Forklift forklift) {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -109,16 +111,50 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete, color: Colors.red),
-          tooltip: 'Hapus',
-          onPressed: () {
-            _showDeleteConfirmationDialog(context, forklift);
+        trailing: PopupMenuButton<String>(
+          onSelected: (String value) async {
+            if (value == 'edit') {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => EditForkliftPage(item: forklift),
+                ),
+              );
+              if (result == true) {
+                context.read<ForkliftIndexCubit>().index(); // refresh data
+              }
+            } else if (value == 'delete') {
+              _showDeleteConfirmationDialog(context, forklift);
+            }
           },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'edit',
+              child: Row(
+                children: [
+                  Icon(Icons.edit, color: Colors.black54),
+                  SizedBox(width: 8),
+                  Text('Edit'),
+                ],
+              ),
+            ),
+            PopupMenuItem<String>(
+              value: 'delete',
+              child: Row(
+                children: [
+                  Icon(Icons.delete, color: Colors.red),
+                  SizedBox(width: 8),
+                  Text('Hapus'),
+                ],
+              ),
+            ),
+          ],
+          icon: Icon(Icons.more_vert),
         ),
       ),
     );
   }
+
 
   Widget _buildEmptyState() {
     return Center(

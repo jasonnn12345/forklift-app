@@ -21,7 +21,6 @@ class ItemTypeRepository extends DioClient {
 }
   Future<EditResponse> update(int id, Map<String, dynamic> data) async {
     final response = await dio.put('item_type/$id', data: data);
-
-    return EditResponse(message: response.data, status: true);
+    return EditResponse(message: response.data['message']);
   }
 }

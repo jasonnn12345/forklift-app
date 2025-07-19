@@ -22,8 +22,7 @@ class ForkliftRepository extends DioClient {
   }
   Future<EditResponse> update(int id, Map<String, dynamic> data) async {
     final response = await dio.put('forklift/update/$id', data: data);
-
-    return EditResponse(message: response.data, status: true);
+    return EditResponse(message: response.data['message']);
   }
   Future<DeleteResponse> delete(int id) async {
     final response = await dio.delete('forklift/delete/$id');

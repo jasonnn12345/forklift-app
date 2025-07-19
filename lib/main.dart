@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos/presentasion/item_type_list/cubit/item_type_index_cubit.dart';
+import 'package:flutter_pos/presentasion/item_type_list/cubit/forklift_index_cubit.dart';
 import 'package:flutter_pos/presentasion/item_type_list/item_type_index_page.dart';
 
 void main() {
@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: BlocProvider(create: (context) => ItemTypeIndexCubit(),
-      child: const MyHomePage(title: "Daftar Jenis Barang"),)
+      home: BlocProvider(create: (context) => ForkliftIndexCubit(),
+      child: const MyHomePage(title: "Daftar Forklift"),)
     );
   }
 }

@@ -1,4 +1,4 @@
-part of 'add_item_cubit.dart';
+part of 'add_forklift_cubit.dart';
 
 @immutable
 sealed class AddItemState {}

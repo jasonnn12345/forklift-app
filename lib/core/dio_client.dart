@@ -5,7 +5,7 @@ class DioClient {
 
   DioClient() {
     dio = Dio();
-    dio.options.baseUrl = "http://localhost:8000/";
+    dio.options.baseUrl = "http://localhost:9000/";
     dio.options.contentType = "application/json";
   }
 }

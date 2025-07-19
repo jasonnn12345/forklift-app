@@ -1,21 +1,23 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_pos/core/forklift_repository.dart';
 import 'package:flutter_pos/core/item_type_repository.dart';
 import 'package:flutter_pos/data/model/item_type.dart';
 import 'package:meta/meta.dart';
 
-part 'add_item_state.dart';
+part 'add_forklift_state.dart';
 
-class AddItemCubit extends Cubit<AddItemState> {
-  final itemTypeRepository = ItemTypeRepository();
+class AddForkliftCubit extends Cubit<AddItemState> {
+  final forkliftRepository = ForkliftRepository();
 
-  AddItemCubit() : super(AddItemInitial());
+  AddForkliftCubit() : super(AddItemInitial());
 
-  void submit(String code, String name, String status) async {
+  void submit(String merk, String capacity, int price) async {
     emit(AddItemLoading());
     try {
-      final params = {"name": name, "code": code, "status": status};
-      final result = await itemTypeRepository.create(params);
+      final params = {"merk_forklift": merk, "kapasitas_forklift": capacity, "harga_sewa": price};
+      final result = await forkliftRepository.create(params);
 
       emit(AddItemSuccess(message: result.message));
     } on DioError catch (_){

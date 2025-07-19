@@ -1,16 +1,17 @@
+import 'package:flutter_pos/data/model/forklift_data.dart';
 import 'package:flutter_pos/data/model/item_type.dart';
 
 class IndexResponse {
-  final List<ItemType> itemTypes;
+  final List<Forklift> forklift;
 
-  IndexResponse({required this.itemTypes});
+  IndexResponse({required this.forklift});
 
   factory IndexResponse.fromJson(List<dynamic> json) {
-    List<ItemType> itemTypes = [];
+    List<Forklift> forklifts = [];
     for (int i = 0; i < json.length; i++) {
-      ItemType type = ItemType.fromJson(json[i]);
-      itemTypes.add(type);
+      Forklift type = Forklift.fromJson(json[i]);
+      forklifts.add(type);
     }
-    return IndexResponse(itemTypes: itemTypes);
+    return IndexResponse(forklift: forklifts);
   }
 }

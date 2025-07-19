@@ -3,29 +3,30 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/core/item_type_repository.dart';
 import 'package:flutter_pos/data/index_response.dart';
+import 'package:flutter_pos/data/model/forklift_data.dart';
 import 'package:flutter_pos/data/model/item_type.dart';
 import 'package:meta/meta.dart';
 
 
-part 'item_type_index_state.dart';
+part 'forklift_index_state.dart';
 
-class ItemTypeIndexCubit extends Cubit<ItemTypeIndexState> {
+class ForkliftIndexCubit extends Cubit<ForkliftIndexState> {
 ItemTypeRepository itemTypeRepository = ItemTypeRepository();
 
-  ItemTypeIndexCubit() : super(ItemTypeIndexInitial()) {
+ForkliftIndexCubit() : super(ForkliftIndexInitial()) {
     index();
   }
 
   void index() async {
-    emit(ItemTypeIndexLoading());
+    emit(ForkliftIndexLoading());
     try {
       IndexResponse result = await itemTypeRepository.index();
-      debugPrint("Hasil ${result.itemTypes.length}");
-      emit(ItemTypeIndexLoaded(itemTypes: result.itemTypes));
+      debugPrint("Hasil ${result.forklift.length}");
+      emit(ForkliftIndexLoaded(forklifts: result.forklift));
     } on DioError {
-      emit(ItemTypeIndexError(message: "Server tidak terhubung"));
+      emit(ForkliftIndexError(message: "Server tidak terhubung"));
     } catch (e) {
-      emit(ItemTypeIndexError(message: e.toString()));
+      emit(ForkliftIndexError(message: e.toString()));
     }
   }
 }

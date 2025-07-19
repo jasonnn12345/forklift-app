@@ -183,9 +183,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showDeleteConfirmationDialog(BuildContext context, Forklift forklift) {
+  void _showDeleteConfirmationDialog(BuildContext parentContext, Forklift forklift) {
     showDialog(
-      context: context,
+      context: parentContext,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Konfirmasi Hapus'),
@@ -195,14 +195,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Batal'),
             ),
-            // Tambahkan implementasi delete jika diperlukan
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //     context.read<ForkliftIndexCubit>().delete(forklift.id);
-            //   },
-            //   child: Text('Hapus', style: TextStyle(color: Colors.red)),
-            // ),
+            TextButton(
+              onPressed: () {
+                parentContext.read<ForkliftIndexCubit>().delete(forklift.id);
+                Navigator.of(context).pop();
+              },
+              child: Text('Hapus', style: TextStyle(color: Colors.red)),
+            ),
           ],
         );
       },

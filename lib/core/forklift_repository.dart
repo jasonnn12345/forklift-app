@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_pos/core/dio_client.dart';
 import 'package:flutter_pos/data/create_response.dart';
+import 'package:flutter_pos/data/delete_response.dart';
 import 'package:flutter_pos/data/edit_response.dart';
 import 'package:flutter_pos/data/index_response.dart';
 
@@ -24,4 +25,9 @@ class ForkliftRepository extends DioClient {
 
     return EditResponse(message: response.data, status: true);
   }
+  Future<DeleteResponse> delete(int id) async {
+    final response = await dio.delete('forklift/delete/$id');
+    return DeleteResponse.fromJson(response.data);
+  }
+
 }

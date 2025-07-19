@@ -2,8 +2,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_pos/core/forklift_repository.dart';
-import 'package:flutter_pos/core/item_type_repository.dart';
-import 'package:flutter_pos/data/model/item_type.dart';
 import 'package:meta/meta.dart';
 
 part 'add_forklift_state.dart';

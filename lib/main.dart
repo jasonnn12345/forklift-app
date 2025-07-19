@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos/presentasion/item_type_list/cubit/forklift_index_cubit.dart';
-import 'package:flutter_pos/presentasion/item_type_list/item_type_index_page.dart';
+import 'package:flutter_pos/presentasion/forklift_list//cubit/forklift_index_cubit.dart';
+import 'package:flutter_pos/presentasion/forklift_list/forklift_index_page.dart';
+import 'package:flutter_pos/presentasion/forklift_rent_list/cubit/forklift_rent_index_cubit.dart';
+import 'package:flutter_pos/presentasion/forklift_rent_list/forklift_rent_index_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: BlocProvider(create: (context) => ForkliftIndexCubit(),
-      child: const MyHomePage(title: "Daftar Forklift"),)
+      home: BlocProvider(create: (context) => ForkliftRentIndexCubit(),
+      child: const MyHomePage(title: "Daftar Rental Forklift"),)
     );
   }
 }

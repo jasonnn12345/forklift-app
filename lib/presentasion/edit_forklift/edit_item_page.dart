@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/data/model/forklift_data.dart';
-import 'package:flutter_pos/presentasion/edit_item_type/cubit/edit_forklift_cubit.dart';
+import 'package:flutter_pos/presentasion/edit_forklift//cubit/edit_forklift_cubit.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 

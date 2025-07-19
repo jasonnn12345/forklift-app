@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/data/model/forklift_data.dart';
 import 'package:flutter_pos/presentasion/add_forklift/add_forklift.dart';
-import 'package:flutter_pos/presentasion/edit_item_type/cubit/edit_forklift_cubit.dart';
-import 'package:flutter_pos/presentasion/edit_item_type/edit_item_page.dart';
-import 'package:flutter_pos/presentasion/item_type_list/cubit/forklift_index_cubit.dart';
+import 'package:flutter_pos/presentasion/edit_forklift//cubit/edit_forklift_cubit.dart';
+import 'package:flutter_pos/presentasion/edit_forklift/edit_item_page.dart';
+import 'package:flutter_pos/presentasion/forklift_list//cubit/forklift_index_cubit.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ForkliftListPage extends StatefulWidget {
+  const ForkliftListPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ForkliftListPage> createState() => _ForkliftListPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ForkliftListPageState extends State<ForkliftListPage> {
   @override
   void initState() {
     super.initState();
-    context.read<ForkliftIndexCubit>().index();
+    context.read<ForkliftIndexCubit>().getForkliftList();
   }
 
   @override
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              context.read<ForkliftIndexCubit>().index();
+              context.read<ForkliftIndexCubit>().getForkliftList();
             },
           ),
         ],
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<ForkliftIndexCubit>().index();
+                context.read<ForkliftIndexCubit>().getForkliftList();
               },
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
 
           if (result == true) {
-            context.read<ForkliftIndexCubit>().index();
+            context.read<ForkliftIndexCubit>().getForkliftList();
             print("Data berhasil ditambahkan");
           }
 
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               );
               if (result == true) {
-                context.read<ForkliftIndexCubit>().index(); // refresh data
+                context.read<ForkliftIndexCubit>().getForkliftList(); // refresh data
               }
             } else if (value == 'delete') {
               _showDeleteConfirmationDialog(context, forklift);
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              context.read<ForkliftIndexCubit>().index();
+              context.read<ForkliftIndexCubit>().getForkliftList();
             },
             child: Text('Coba Lagi'),
           ),
@@ -233,7 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               onPressed: () {
-                parentContext.read<ForkliftIndexCubit>().delete(forklift.id);
+                parentContext.read<ForkliftIndexCubit>().deleteForklift(forklift.id);
                 Navigator.of(context).pop();
               },
               child: Text('Hapus', style: TextStyle(color: Colors.red)),

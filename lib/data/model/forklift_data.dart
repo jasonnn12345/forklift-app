@@ -1,18 +1,18 @@
-class Forklift {
+class ForkliftData {
   final int id;
   final String merek;
   final int kapasitas;
   final int hargaSewa;
 
-  Forklift({
+  ForkliftData({
     required this.id,
     required this.merek,
     required this.kapasitas,
     required this.hargaSewa,
   });
 
-  factory Forklift.fromJson(Map<String, dynamic> json) {
-    return Forklift(
+  factory ForkliftData.fromJson(Map<String, dynamic> json) {
+    return ForkliftData(
       id: json['id_forklift'],
       merek: json['merk_forklift'],
       kapasitas: json['kapasitas_forklift'],

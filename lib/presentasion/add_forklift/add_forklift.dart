@@ -55,7 +55,7 @@ class _AddForkliftPageState extends State<AddForkliftPage> {
                       final harga = int.parse(parseCurrencyToNumber(hargaRaw));
 
 
-                      context.read<AddForkliftCubit>().submit(
+                      context.read<AddForkliftCubit>().createForklift(
                         merek,
                         kapasitas,
                         harga,

@@ -9,7 +9,7 @@ class EditForkliftCubit extends Cubit<EditForkliftState> {
   final forkliftRepository = ForkliftRepository();
   EditForkliftCubit() : super(EditForkliftInitial());
 
-  void update(int id,String merk, String capacity, int price) async {
+  void updateForklift(int id,String merk, String capacity, int price) async {
     emit(EditForkliftLoading() as EditForkliftState);
     try {
       final params = {"merk_forklift": merk, "kapasitas_forklift": capacity, "harga_sewa": price};

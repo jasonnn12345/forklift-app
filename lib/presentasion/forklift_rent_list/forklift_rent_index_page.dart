@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/data/model/forklift_rent_data.dart';
+import 'package:flutter_pos/presentasion/add_forklift_rent/add_forklift_rent.dart';
 import 'package:flutter_pos/presentasion/forklift_rent_list/cubit/forklift_rent_index_cubit.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -64,15 +65,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          //hold dlu
-          // final result = await Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (_) => AddPenyewaanPage()),
-          // );
-          //
-          // if (result == true) {
-          //   context.read<PenyewaanCubit>().fetchPenyewaan();
-          // }
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AddForkliftRentPage()),
+          );
+
+          if (result == true) {
+            context.read<ForkliftRentIndexCubit>().getAllForkliftRentList();
+          }
         },
         tooltip: 'Tambah Penyewaan',
         child: Icon(Icons.add),
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildPenyewaanCard(Penyewaan penyewaan) {
+  Widget _buildPenyewaanCard(ForkliftRentData penyewaan) {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

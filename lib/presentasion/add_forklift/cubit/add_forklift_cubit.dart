@@ -11,7 +11,7 @@ class AddForkliftCubit extends Cubit<AddItemState> {
 
   AddForkliftCubit() : super(AddItemInitial());
 
-  void submit(String merk, String capacity, int price) async {
+  void createForklift(String merk, String capacity, int price) async {
     emit(AddItemLoading());
     try {
       final params = {"merk_forklift": merk, "kapasitas_forklift": capacity, "harga_sewa": price};

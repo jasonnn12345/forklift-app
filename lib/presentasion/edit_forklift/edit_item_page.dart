@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class EditForkliftPage extends StatefulWidget {
-  final Forklift item;
+  final ForkliftData item;
 
   const EditForkliftPage({super.key, required this.item});
 
@@ -95,7 +95,7 @@ class _EditForkliftPageState extends State<EditForkliftPage> {
 
                       final harga = int.tryParse(parseCurrencyToNumber(hargaRaw)) ?? 0;
 
-                      context.read<EditForkliftCubit>().update(
+                      context.read<EditForkliftCubit>().updateForklift(
                         widget.item.id,
                         merek,
                         kapasitas,

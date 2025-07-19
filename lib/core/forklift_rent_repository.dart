@@ -13,11 +13,11 @@ class ForkliftRentRepository extends DioClient {
     return getForklistRentResponse.fromJson(response.data);
   }
 
-  // Future<CreateForkliftResponse> create(Map<String, dynamic> params) async {
-  //   var response = await dio.post("forklift/create", data: params);
-  //   return CreateForkliftResponse.fromJson(response.data);
-  // }
-  //
+  Future<CreateForkliftResponse> create(Map<String, dynamic> params) async {
+    var response = await dio.post("penyewaan/create", data: params);
+    return CreateForkliftResponse.fromJson(response.data);
+  }
+
   // Future<EditForkliftResponse> updateForklift(int id, Map<String, dynamic> data) async {
   //   final response = await dio.put('forklift/update/$id', data: data);
   //   return EditForkliftResponse.fromJson(response.data);

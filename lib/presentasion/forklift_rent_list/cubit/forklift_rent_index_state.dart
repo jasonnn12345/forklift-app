@@ -6,7 +6,7 @@ sealed class ForkliftRentIndexState {}
 final class ForkliftRentIndexInitial extends ForkliftRentIndexState {}
 
 final class ForkliftRentIndexLoaded extends ForkliftRentIndexState {
-  final List<Penyewaan> forkliftRent;
+  final List<ForkliftRentData> forkliftRent;
   ForkliftRentIndexLoaded({required this.forkliftRent});
 }
 

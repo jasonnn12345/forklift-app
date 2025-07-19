@@ -6,7 +6,7 @@ sealed class ForkliftIndexState {}
 final class ForkliftIndexInitial extends ForkliftIndexState {}
 
 final class ForkliftIndexLoaded extends ForkliftIndexState {
-  final List<Forklift> forklifts;
+  final List<ForkliftData> forklifts;
 
   ForkliftIndexLoaded({required this.forklifts});
 }

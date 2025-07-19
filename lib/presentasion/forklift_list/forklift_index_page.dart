@@ -84,7 +84,7 @@ class _ForkliftListPageState extends State<ForkliftListPage> {
     );
   }
 
-  Widget _buildForkliftCard(BuildContext context, Forklift forklift) {
+  Widget _buildForkliftCard(BuildContext context, ForkliftData forklift) {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -151,6 +151,9 @@ class _ForkliftListPageState extends State<ForkliftListPage> {
           ],
           icon: Icon(Icons.more_vert),
         ),
+        onTap: (){
+          Navigator.pop(context, forklift);
+        },
       ),
     );
   }
@@ -219,7 +222,7 @@ class _ForkliftListPageState extends State<ForkliftListPage> {
     );
   }
 
-  void _showDeleteConfirmationDialog(BuildContext parentContext, Forklift forklift) {
+  void _showDeleteConfirmationDialog(BuildContext parentContext, ForkliftData forklift) {
     showDialog(
       context: parentContext,
       builder: (BuildContext context) {

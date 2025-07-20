@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos/data/model/forklift_rent_data.dart';
 import 'package:flutter_pos/presentasion/add_forklift_rent/add_forklift_rent.dart';
 import 'package:flutter_pos/presentasion/forklift_rent_list/cubit/forklift_rent_index_cubit.dart';
+import 'package:intl/intl.dart';
+import '../add_forklift_rent/cubit/add_forklift_rent_cubit.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -67,7 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           final result = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => AddForkliftRentPage()),
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (_) => AddRentCubit(),
+                child: const AddForkliftRentPage(),
+              ),
+            ),
           );
 
           if (result == true) {
@@ -91,20 +98,81 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         title: Text(
           penyewaan.namaPenyewa,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${penyewaan.merkForklift} (${penyewaan.kapasitasForklift})'),
+            Text('Forklift: ${penyewaan.merkForklift} (${penyewaan.kapasitasForklift} ton)'),
+            Text('ID Forklift: ${penyewaan.idForklift}'),
+            Text('ID Penyewaan: ${penyewaan.idPenyewaan}'),
             SizedBox(height: 4),
-            Text('Tgl Sewa: ${penyewaan.tanggalSewa}'),
+            Text('Tanggal Sewa: ${formatTanggal(penyewaan.tanggalSewa)}'),
             Text('Lama Sewa: ${penyewaan.lamaSewa} hari'),
             SizedBox(height: 4),
-            Text('Total: Rp ${penyewaan.totalBiaya}'),
+            Text('Total Biaya: Rp ${penyewaan.totalBiaya}'),
           ],
         ),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: PopupMenuButton<String>(
+          icon: Icon(Icons.more_vert),
+          onSelected: (value) async {
+            if (value == 'edit') {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => BlocProvider(
+                    create: (_) => AddRentCubit(),
+                    child: AddForkliftRentPage(existingData: penyewaan),
+                  ),
+                ),
+              );
+              if (result == true) {
+                context.read<ForkliftRentIndexCubit>().getAllForkliftRentList();
+              }
+            }
+            else if (value == 'delete') {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('Hapus Penyewaan'),
+                  content: Text('Yakin ingin menghapus penyewaan ini?'),
+                  actions: [
+                    TextButton(onPressed: () => Navigator.pop(context, false), child: Text('Batal')),
+                    TextButton(onPressed: () => Navigator.pop(context, true), child: Text('Hapus')),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                await context.read<ForkliftRentIndexCubit>().deleteForklift(penyewaan.idPenyewaan);
+
+              }
+            }
+
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'edit',
+              child: Row(
+                children: [
+                  Icon(Icons.edit, color: Colors.blue),
+                  SizedBox(width: 8),
+                  Text('Edit'),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'delete',
+              child: Row(
+                children: [
+                  Icon(Icons.delete, color: Colors.red),
+                  SizedBox(width: 8),
+                  Text('Hapus'),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -165,3 +233,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+String formatTanggal(String isoDate) {
+  final date = DateTime.parse(isoDate); // Tanpa toLocal()
+  return DateFormat('dd-MM-yyyy').format(date); // Hasil: 30-06-2025
+}
+
+
+
+

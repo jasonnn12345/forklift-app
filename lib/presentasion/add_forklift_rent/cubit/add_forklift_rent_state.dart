@@ -1,19 +1,19 @@
 part of 'add_forklift_rent_cubit.dart';
 
 @immutable
-sealed class AddItemState {}
+sealed class AddRentState {}
 
-final class AddItemInitial extends AddItemState {}
+final class AddRentInitial extends AddRentState {}
 
-class AddItemLoading extends AddItemState {}
+class AddRentLoading extends AddRentState {}
 
-class AddItemSuccess extends AddItemState {
+class AddRentSuccess extends AddRentState {
   final String message;
 
-  AddItemSuccess({required this.message});
+  AddRentSuccess({required this.message});
 }
 
-class AddItemError extends AddItemState {
+class AddRentError extends AddRentState {
   final String message;
-  AddItemError({required this.message});
+  AddRentError({required this.message});
 }

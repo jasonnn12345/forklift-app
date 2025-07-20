@@ -31,4 +31,39 @@ class ForkliftRentIndexCubit extends Cubit<ForkliftRentIndexState> {
       emit(ForkliftRentIndexError(message: e.toString()));
     }
   }
+
+  Future<void> confirmAndDelete(BuildContext context, int id) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Hapus Penyewaan'),
+        content: Text('Yakin ingin menghapus penyewaan ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text('Hapus'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      await deleteForklift(id);
+    }
+  }
+
+  Future<void> deleteForklift(int id) async {
+    try {
+      emit(ForkliftRentIndexLoading());
+      await forkliftRentRepository.deleteForklift(id);
+      getAllForkliftRentList(); // Refresh list setelah delete
+    } catch (e) {
+      emit(ForkliftRentIndexError(message: "Gagal menghapus penyewaan"));
+    }
+  }
+
 }

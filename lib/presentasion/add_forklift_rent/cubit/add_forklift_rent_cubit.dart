@@ -5,36 +5,61 @@ import 'package:meta/meta.dart';
 
 part 'add_forklift_rent_state.dart';
 
-class AddPenyewaanCubit extends Cubit<AddItemState> {
+class AddRentCubit extends Cubit<AddRentState> {
   final forkliftRentRepository = ForkliftRentRepository();
 
-  AddPenyewaanCubit() : super(AddItemInitial());
+  AddRentCubit() : super(AddRentInitial());
 
   void createForkliftRent({
     required int penyewaId,
     required int forkliftId,
     required String tanggalSewa,
-    required String tanggalKembali,
     required int lamaSewa,
     required int totalBiaya,
   }) async {
-    emit(AddItemLoading());
+    emit(AddRentLoading());
     try {
       final params = {
         "id_penyewa": penyewaId,
         "id_forklift": forkliftId,
         "tanggal_sewa": tanggalSewa,
-        "tanggal_kembali": tanggalKembali,
         "lama_sewa": lamaSewa,
         "total_biaya": totalBiaya,
       };
 
       final result = await forkliftRentRepository.create(params);
-      emit(AddItemSuccess(message: result.message));
+      emit(AddRentSuccess(message: result.message));
     } on DioError catch (_) {
-      emit(AddItemError(message: "Masalah Koneksi"));
+      emit(AddRentError(message: "Masalah Koneksi"));
     } catch (e) {
-      emit(AddItemError(message: e.toString()));
+      emit(AddRentError(message: e.toString()));
+    }
+  }
+
+  void editForkliftRent({
+    required int id,
+    required int penyewaId,
+    required int forkliftId,
+    required String tanggalSewa,
+    required int lamaSewa,
+    required int totalBiaya,
+  }) async {
+    emit(AddRentLoading());
+    try {
+      final params = {
+        "id_penyewa": penyewaId,
+        "id_forklift": forkliftId,
+        "tanggal_sewa": tanggalSewa,
+        "lama_sewa": lamaSewa,
+        "total_biaya": totalBiaya,
+      };
+
+      final result = await forkliftRentRepository.updateForklift(id,params);
+      emit(AddRentSuccess(message: result.message));
+    } on DioError catch (_) {
+      emit(AddRentError(message: "Masalah Koneksi"));
+    } catch (e) {
+      emit(AddRentError(message: e.toString()));
     }
   }
 }

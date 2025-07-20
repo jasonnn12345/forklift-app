@@ -15,7 +15,5 @@ class AddItemSuccess extends AddItemState {
 
 class AddItemError extends AddItemState {
   final String message;
-
-
   AddItemError({required this.message});
 }

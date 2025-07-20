@@ -82,6 +82,7 @@ class _ForkliftListPageState extends State<ForkliftListPage> {
         child: Icon(Icons.add),
       ),
     );
+
   }
 
   Widget _buildForkliftCard(BuildContext context, ForkliftData forklift) {
@@ -120,8 +121,8 @@ class _ForkliftListPageState extends State<ForkliftListPage> {
                   builder: (_) => EditForkliftPage(item: forklift),
                 ),
               );
-              if (result == true) {
-                context.read<ForkliftIndexCubit>().getForkliftList(); // refresh data
+              if (result != null) {
+                context.read<ForkliftIndexCubit>().getForkliftList();
               }
             } else if (value == 'delete') {
               _showDeleteConfirmationDialog(context, forklift);

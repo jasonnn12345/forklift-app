@@ -50,7 +50,15 @@ class _EditForkliftPageState extends State<EditForkliftPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message), backgroundColor: Colors.green),
               );
-              Navigator.pop(context, true);
+
+              final updatedForklift = ForkliftData(
+                id: widget.item.id,
+                merek: merekController.text.trim(),
+                kapasitas: int.tryParse(kapasitasController.text.trim()) ?? 0,
+                hargaSewa: int.tryParse(parseCurrencyToNumber(hargaController.text)) ?? 0,
+              );
+
+              Navigator.pop(context, updatedForklift);
             } else if (state is EditForkliftError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message), backgroundColor: Colors.red),
